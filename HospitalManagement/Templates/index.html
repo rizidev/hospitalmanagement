@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palani Hospital Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('{{ url_for('static', filename='images/background.jpg') }}'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            color: white; /* Text color for visibility */
+            overflow-y: auto; /* Enable vertical scroll */
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            border-radius: 8px; /* Rounded corners */
+            margin-bottom: 20px; /* Space below the header */
+        }
+        .logo {
+            width: 50px; /* Logo size */
+            height: auto;
+        }
+        main {
+            background-color: rgba(18, 5, 46, 0.8); /* Main content background */
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px; /* Limit width for better readability */
+            margin: 0 auto; /* Center the main content */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+        }
+        .form-container {
+            display: flex; /* Use flexbox to position form and image side by side */
+            align-items: flex-start; /* Align items at the top */
+            justify-content: space-between; /* Space between form and image */
+            width: 100%; /* Full width */
+        }
+        .form-section {
+            flex: 1; /* Allow form section to take available space */
+            padding-right: 20px; /* Space between form and image */
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for inputs */
+        }
+        input[type="submit"] {
+            background-color: #7a1a1a;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        input[type="submit"]:hover {
+            background-color: #061252;
+        }
+        .fixed-image {
+            width:400px; /* Adjust the width of the image */
+            height: 400px; /* Maintain aspect ratio */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Subtle shadow for image */
+            border-radius: 8px; /* Rounded corners */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            color: white;
+        }
+        table, th, td {
+            border: 1px solid white;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #061252;
+        }
+        @media (max-width: 600px) {
+            /* Responsive adjustments */
+            .fixed-image {
+                width: 150px; /* Smaller size on mobile */
+            }
+            .form-container {
+                flex-direction: column; /* Stack form and image on small screens */
+                align-items: center; /* Center items */
+            }
+            .form-section {
+                padding-right: 0; /* Remove right padding on small screens */
+                margin-bottom: 20px; /* Add space below the form on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Hospital Logo" class="logo">
+        <h1>Palani Hospital Management System</h1>
+        <p>Surandai, Tenkasi district</p>
+    </header>
+    <main>
+        <h2>Patients List</h2>
+        <div class="form-container">
+            <div class="form-section">
+                <form action="{{ url_for('add_patient') }}" method="POST">
+                    <label for="id">ID No:</label>
+                    <input type="text" id="id" name="id" required>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                    <label for="disease">Disease:</label>
+                    <input type="text" id="disease" name="disease" required>
+                    <label for="phone">Phone No:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                    <input type="submit" value="Add Patient">
+                </form>
+            </div>
+            <img src="{{ url_for('static', filename='images/fixed-image1.jpg') }}" alt="Fixed Image" class="fixed-image">
+        </div>
+        
+        <h3>All Patients</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Disease</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.id }}</td>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.disease }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.address }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
+

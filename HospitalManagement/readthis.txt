@@ -1,0 +1,6 @@
+in cmd install this:
+>pip install flask flask-mysqldb
+
+
+run  command:
+python app.py
